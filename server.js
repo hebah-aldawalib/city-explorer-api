@@ -100,12 +100,32 @@ class Forecast {
     constructor(date, description) {
         this.date = date;
         this.description = description;
+ 
+
+        
+
+
     }
 }
 
 function handleErrors(response) {
     response.status(500).send('Something went wrong.');
 }
+
+
+const checkArray=weather.find(item=>{
+    return item.city_name.toLowerCase()===city.toLowerCase()
+    
+    })
+    
+    if (checkArray){
+    let newArray=checkArray.data.map(item=>{
+      return new Forecast(item.datetime,item.weather.description)
+    })
+    res.json(newArray)
+    }else {
+     res.json('no data ')
+    }
 
 app.listen(3001, () => {
     console.log(`Server started on port`);
