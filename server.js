@@ -69,7 +69,7 @@ app.get("/movies", async (request, response) => {
     const city_name = request.query.query;
     // console.log(movieResponse);
 
-    const movie = "https://api.themoviedb.org/3/search/movie";
+    const movie = `https://api.themoviedb.org/3/movie/550?api_key=${MOVIES_API_KEY}`;
     const movieResponse = await axios.get(
         `${movie}?query=${city_name}&api_key=${process.env.MOVIES_API_KEY}`
     );
