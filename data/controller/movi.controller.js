@@ -3,11 +3,21 @@ const axios = require("axios");
 require('dotenv').config();
 const MOVIES_API_KEY = process.env.MOVIES_API_KEY;
 const Moovies =require('../models/movie.model');
-
+const Cache = require("../helper/cache.helper");
+let cacheObject = new Cache();
 
 const getMovies= async (request, response) => {
 
     const city_name = request.query.query;
+
+    const shuTime =12000;
+    const tenSeconds = (Date.now() - cacheObject.timeStamp) > shuTime;
+    if (tenSeconds) {
+     
+      cacheObject = new Cache();
+    }
+  
+  
 
     const movie = `https://api.themoviedb.org/3/movie/550?api_key=${MOVIES_API_KEY}`;
     const movieResponse = await axios.get(
@@ -29,6 +39,12 @@ const getMovies= async (request, response) => {
 
             );
         })
+
+
+        cacheObject.movies.push({
+            city_name: city_name,
+            data: data,
+          });
         if (moviData.length) {
             response.json(moviData);
         }
