@@ -51,8 +51,6 @@ app.get('/weathers',  async (request,res)=>{
 // })
 
 
-
-
 }
 
 )
