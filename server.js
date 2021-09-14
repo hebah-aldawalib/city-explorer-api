@@ -17,10 +17,16 @@ const {
     getHello
   } = require('./controller/index.controller');
   
+
+
+
+
+
     app.get('/', getIndex)
     app.get('/ getHello',  getHello)
 
 app.get('/weather', getWeather);
+
 
 
 app.get('/movies', getMovies);
